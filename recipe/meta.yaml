@@ -1,4 +1,4 @@
-{% set version = "0.6.0" %}
+{% set version = "0.10.1" %}
 
 package:
   name: composeml
@@ -6,46 +6,47 @@ package:
 
 source:
   url: https://pypi.io/packages/source/c/composeml/composeml-{{ version }}.tar.gz
-  sha256: 44a0707f7ae4cc482858fc4674931b082167d080c0c2c0a410fa85a022b02a6e
+  sha256: d87fc181be72fadec16ea0e44ebd363b4e2e3620c87c8b2cae6e236fd00761d4
 
 build:
-  noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation -vv .
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python
+    - setuptools
+    - wheel
   run:
-    - python >=3.6
-    - pandas >=0.23.0
-    - numpy >=1.13.3
-    - tqdm >=4.19.2
-    - matplotlib >=3.0.2
-    - seaborn >=0.9.0
+    - python
+    - pandas >=1.3.0
+    - tqdm >=4.32.0
+    - matplotlib >=3.3.3
+    - seaborn >=0.11.0
 
 test:
   commands:
-    - pytest --pyargs composeml
+    - pip check
   imports:
     - composeml
   requires:
-    - pytest ==4.4.1
-    - fastparquet >=0.1.6
-    - packaging ==20.4
-    - featuretools >=0.9.0
-  source_files:
-    - composeml/*
+    - pip
 
 about:
-  doc_url: https://compose.featurelabs.com
-  dev_url: https://github.com/FeatureLabs/compose
-  home: https://compose.featurelabs.com
+  doc_url: https://compose.alteryx.com/
+  dev_url: https://github.com/alteryx/compose
+  home: https://compose.alteryx.com/
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
   summary: An open source python library for automated prediction engineering.
+  description: | 
+    Compose is a machine learning tool for automated prediction engineering. It allows you to structure prediction problems
+    and generate labels for supervised learning. An end user defines an outcome of interest by writing a labeling function, 
+    then runs a search to automatically extract training examples from historical data. Its result is then provided to 
+    Featuretools for automated feature engineering and subsequently to EvalML for automated machine learning
+
 
 extra:
   recipe-maintainers:
