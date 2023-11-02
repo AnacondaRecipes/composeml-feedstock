@@ -16,7 +16,7 @@ requirements:
   host:
     - pip
     - python
-    - setuptools
+    - setuptools >=61.0.0
     - wheel
   run:
     - python
@@ -26,12 +26,23 @@ requirements:
     - seaborn >=0.11.0
 
 test:
+  source_files:
+    - composeml
   commands:
     - pip check
+    #- pytest -k "not ( test_search_offset_mix_5 or test_minimum_data_per_group[minimum_data1] or test_sorted_distribution or test_subscriptable_slices[True-offsets2] or test_subscriptable_slices[True-offsets3])"
+    #- pytest -k "test_search_offset_mix_5"
+    - pytest
   imports:
     - composeml
   requires:
     - pip
+    - pytest >=7.1.2
+    - pytest-xdist >=2.5.0
+    - featuretools >=1.27.0
+    - woodwork >=0.25.1
+    - pyarrow >=7.0.0
+
 
 about:
   doc_url: https://compose.alteryx.com/
