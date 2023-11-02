@@ -10,6 +10,7 @@ source:
 
 build:
   number: 0
+  skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation -vv .
 
 requirements:
@@ -22,16 +23,14 @@ requirements:
     - python
     - pandas >=1.3.0
     - tqdm >=4.32.0
-    - matplotlib >=3.3.3
+    - matplotlib-base >=3.3.3
     - seaborn >=0.11.0
 
 test:
-  source_files:
-    - composeml
   commands:
     - pip check
     #skip failing tests connected with underlaying pandas issues eg  pandas._libs.tslibs.np_datetime.OutOfBoundsDatetime: Cannot cast 0001-01-01 02:00:00 to unit='ns' without overflow.
-    - pytest -k "not ( test_search_offset_mix_5 or test_minimum_data_per_group[minimum_data1] or test_sorted_distribution or test_subscriptable_slices[True-offsets2] or test_subscriptable_slices[True-offsets3])"
+    - pytest --pyargs composeml -v -k "not ( test_search_offset_mix_5 or test_minimum_data_per_group[minimum_data1] or test_sorted_distribution or test_subscriptable_slices[True-offsets2] or test_subscriptable_slices[True-offsets3])"
   imports:
     - composeml
   requires:
@@ -39,8 +38,8 @@ test:
     - pytest >=7.1.2
     - pytest-xdist >=2.5.0
     - featuretools >=1.27.0
-    - woodwork >=0.25.1
-    - pyarrow >=7.0.0
+    - woodwork >=0.11.0
+    - pyarrow >=3.0.0
 
 
 about:
