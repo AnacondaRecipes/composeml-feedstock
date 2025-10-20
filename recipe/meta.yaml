@@ -46,8 +46,8 @@ test:
     - pyproject.toml
   commands:
     - pip check
-    - pytest --pyargs composeml -v {{ ignore_tests_featuretools }} {{ ignore_tests | join(" ")}} # [py<312]
-    - pytest --pyargs composeml -v {{ ignore_tests | join(" ")}} # [py>311]
+    - pytest --pyargs composeml -v {{ ignore_tests | join(" ")}} # [py<312]
+    - pytest --pyargs composeml -v {{ ignore_tests | join(" ")}} {{ ignore_tests_featuretools }} # [py>311]
   imports:
     - composeml
   requires:
