@@ -27,9 +27,7 @@ requirements:
     - matplotlib-base >=3.3.3
     - seaborn >=0.11.0
 
-{% set ignore_tests_featuretools = [
-  "--ignore=composeml/tests/test_featuretools.py"
-]%}
+{% set ignore_tests_featuretools = "--ignore=composeml/tests/test_featuretools.py" %}
 # Assertion errors
 {% set ignore_tests = [
   "--deselect=composeml/tests/test_data_slice/test_extension.py::test_subscriptable_slices[True-offsets2]",
