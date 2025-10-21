@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: d87fc181be72fadec16ea0e44ebd363b4e2e3620c87c8b2cae6e236fd00761d4
 
 build:
@@ -44,10 +44,15 @@ test:
     - pyproject.toml
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert version('{{ name }}') == '{{ version }}'"
     - pytest --pyargs composeml -v {{ ignore_tests | join(" ")}} # [py<312]
     - pytest --pyargs composeml -v {{ ignore_tests | join(" ")}} {{ ignore_tests_featuretools }} # [py>311]
   imports:
     - composeml
+    - composeml.data_slice
+    - composeml.label_search
+    - composeml.label_times
+    - composeml.tests
   requires:
     - pip
     - pytest >=7.1.2
